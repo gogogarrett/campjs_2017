@@ -1,0 +1,52 @@
+Arguments: 
+  /Users/garrett/.nvm/versions/node/v7.8.0/bin/node /Users/garrett/.yarn/bin/yarn.js
+
+PATH: 
+  /Users/garrett/.yarn/bin:/usr/local/opt/mysql@5.6/bin:/Users/garrett/.gem/ruby/2.1.2/bin/:/Users/garrett/bin/:/Users/garrett/.gem/ruby/2.1.5/bin:/Users/garrett/.rubies/ruby-2.1.5/lib/ruby/gems/2.1.0/bin:/Users/garrett/.rubies/ruby-2.1.5/bin:/Users/garrett/.nvm/versions/node/v7.8.0/bin:/Users/garrett/.asdf/bin:/Users/garrett/.asdf/shims:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/garrett/Blake/bx/bin:/Users/garrett/Blake/bd/bin
+
+Yarn version: 
+  0.24.5
+
+Node version: 
+  7.8.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "repository": {},
+    "license": "MIT",
+    "scripts": {
+      "deploy": "brunch build --production",
+      "watch": "brunch watch --stdin"
+    },
+    "dependencies": {
+      "phoenix": "file:deps/phoenix",
+      "phoenix_html": "file:deps/phoenix_html"
+    },
+    "devDependencies": {
+      "babel-brunch": "~6.0.0",
+      "brunch": "2.7.4",
+      "clean-css-brunch": "~2.0.0",
+      "css-brunch": "~2.0.0",
+      "elm-brunch": "^0.9.0",
+      "javascript-brunch": "~2.0.0",
+      "uglify-js-brunch": "~2.0.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: connect ECONNABORTED 104.16.61.173:443 - Local (0.0.0.0:0)
+      at Object.exports._errnoException (util.js:1034:11)
+      at exports._exceptionWithHostPort (util.js:1057:20)
+      at internalConnect (net.js:893:16)
+      at emitLookup (net.js:1019:7)
+      at GetAddrInfoReqWrap.asyncCallback [as callback] (dns.js:62:16)
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:78:10)

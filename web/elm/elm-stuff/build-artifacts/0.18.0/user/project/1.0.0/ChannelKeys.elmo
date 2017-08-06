@@ -1,0 +1,4 @@
+var _user$project$ChannelKeys$keyGameReject = 'game_reject';
+var _user$project$ChannelKeys$keyGameOffer = 'game_offer';
+var _user$project$ChannelKeys$keyGameAssignerLobby = 'lobby:game_assigner';
+var _user$project$ChannelKeys$keySocketServer = 'ws://localhost:4001/socket/websocket';
