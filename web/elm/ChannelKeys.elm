@@ -1,9 +1,9 @@
 module ChannelKeys exposing (..)
 
 
-keySocketServer : String
-keySocketServer =
-    "ws://localhost:4001/socket/websocket"
+keySocketServer : String -> String
+keySocketServer userId =
+    "ws://localhost:4001/socket/websocket?user_id=" ++ userId
 
 
 keyGameAssignerLobby : String
@@ -19,3 +19,18 @@ keyGameOffer =
 keyGameReject : String
 keyGameReject =
     "game_reject"
+
+
+keyGameChannel : String -> String
+keyGameChannel gameId =
+    "game:" ++ gameId
+
+
+keySubmitAnswer : String
+keySubmitAnswer =
+    "submit_answer"
+
+
+keyGameStateUpdated : String
+keyGameStateUpdated =
+    "game_state_updated"

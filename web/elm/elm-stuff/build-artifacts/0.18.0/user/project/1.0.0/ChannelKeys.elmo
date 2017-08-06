@@ -1,4 +1,11 @@
+var _user$project$ChannelKeys$keyGameStateUpdated = 'game_state_updated';
+var _user$project$ChannelKeys$keySubmitAnswer = 'submit_answer';
+var _user$project$ChannelKeys$keyGameChannel = function (gameId) {
+	return A2(_elm_lang$core$Basics_ops['++'], 'game:', gameId);
+};
 var _user$project$ChannelKeys$keyGameReject = 'game_reject';
 var _user$project$ChannelKeys$keyGameOffer = 'game_offer';
 var _user$project$ChannelKeys$keyGameAssignerLobby = 'lobby:game_assigner';
-var _user$project$ChannelKeys$keySocketServer = 'ws://localhost:4001/socket/websocket';
+var _user$project$ChannelKeys$keySocketServer = function (userId) {
+	return A2(_elm_lang$core$Basics_ops['++'], 'ws://localhost:4001/socket/websocket?user_id=', userId);
+};

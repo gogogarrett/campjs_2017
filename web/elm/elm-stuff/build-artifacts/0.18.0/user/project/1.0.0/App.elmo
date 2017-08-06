@@ -1,4 +1,4 @@
-var _user$project$Main$buildGameContext = function (gameId) {
+var _user$project$App$buildGameContext = function (gameId) {
 	return _elm_lang$core$Json_Encode$object(
 		{
 			ctor: '::',
@@ -10,7 +10,7 @@ var _user$project$Main$buildGameContext = function (gameId) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$userParams = function (userId) {
+var _user$project$App$userParams = function (userId) {
 	return _elm_lang$core$Json_Encode$object(
 		{
 			ctor: '::',
@@ -22,99 +22,136 @@ var _user$project$Main$userParams = function (userId) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$Model = F4(
-	function (a, b, c, d) {
-		return {phxSocket: a, userId: b, history: c, route: d};
+var _user$project$App$renderPlayer = function (player) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(_elm_lang$core$Basics_ops['++'], 'Player', player.id)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$p,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(player.score)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$App$renderPlayers = function (players) {
+	return A2(_elm_lang$core$List$map, _user$project$App$renderPlayer, players);
+};
+var _user$project$App$Model = F5(
+	function (a, b, c, d, e) {
+		return {phxSocket: a, userId: b, history: c, route: d, players: e};
 	});
-var _user$project$Main$Flags = function (a) {
+var _user$project$App$Flags = function (a) {
 	return {userId: a};
 };
-var _user$project$Main$GameScopeContext = function (a) {
+var _user$project$App$GameScopeContext = function (a) {
 	return {scope: a};
 };
-var _user$project$Main$newGameScope = function (scope) {
-	return _user$project$Main$GameScopeContext(scope);
+var _user$project$App$newGameScope = function (scope) {
+	return _user$project$App$GameScopeContext(scope);
 };
-var _user$project$Main$GameContext = function (a) {
+var _user$project$App$GameContext = function (a) {
 	return {game_id: a};
 };
-var _user$project$Main$decodeGameContext = A2(
+var _user$project$App$decodeGameContext = A2(
 	_elm_lang$core$Json_Decode$map,
-	_user$project$Main$GameContext,
+	_user$project$App$GameContext,
 	A2(_elm_lang$core$Json_Decode$field, 'game_id', _elm_lang$core$Json_Decode$string));
-var _user$project$Main$ChannelContext = F2(
+var _user$project$App$ChannelContext = F2(
 	function (a, b) {
 		return {channel_topic: a, payload: b};
 	});
-var _user$project$Main$buildChannelContext = F2(
+var _user$project$App$buildChannelContext = F2(
 	function (channelId, payLoad) {
-		return A2(_user$project$Main$ChannelContext, channelId, payLoad);
+		return A2(_user$project$App$ChannelContext, channelId, payLoad);
 	});
-var _user$project$Main$PlayerScore = F2(
+var _user$project$App$PlayerScore = F2(
 	function (a, b) {
 		return {id: a, score: b};
 	});
-var _user$project$Main$decodeGameState = _elm_lang$core$Json_Decode$list(
-	A3(
-		_elm_lang$core$Json_Decode$map2,
-		_user$project$Main$PlayerScore,
-		A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$string),
-		A2(_elm_lang$core$Json_Decode$field, 'score', _elm_lang$core$Json_Decode$int)));
-var _user$project$Main$UpdateGameScore = function (a) {
+var _user$project$App$decodeGameState = A2(
+	_elm_lang$core$Json_Decode$field,
+	'players',
+	_elm_lang$core$Json_Decode$list(
+		A3(
+			_elm_lang$core$Json_Decode$map2,
+			_user$project$App$PlayerScore,
+			A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$string),
+			A2(_elm_lang$core$Json_Decode$field, 'score', _elm_lang$core$Json_Decode$int))));
+var _user$project$App$UpdateGameScore = function (a) {
 	return {ctor: 'UpdateGameScore', _0: a};
 };
-var _user$project$Main$AnswerQuestion = function (a) {
+var _user$project$App$AnswerQuestion = function (a) {
 	return {ctor: 'AnswerQuestion', _0: a};
 };
-var _user$project$Main$UrlChange = function (a) {
+var _user$project$App$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
 };
-var _user$project$Main$RequestGame = function (a) {
+var _user$project$App$RequestGame = function (a) {
 	return {ctor: 'RequestGame', _0: a};
 };
-var _user$project$Main$GameReject = function (a) {
+var _user$project$App$GameReject = function (a) {
 	return {ctor: 'GameReject', _0: a};
 };
-var _user$project$Main$GameOffer = function (a) {
+var _user$project$App$GameOffer = function (a) {
 	return {ctor: 'GameOffer', _0: a};
 };
-var _user$project$Main$initPhxSocket = function (userId) {
+var _user$project$App$initPhxSocket = function (userId) {
 	return A4(
 		_fbonetti$elm_phoenix_socket$Phoenix_Socket$on,
 		_user$project$ChannelKeys$keyGameReject,
 		_user$project$ChannelKeys$keyGameAssignerLobby,
-		_user$project$Main$GameReject,
+		_user$project$App$GameReject,
 		A4(
 			_fbonetti$elm_phoenix_socket$Phoenix_Socket$on,
 			_user$project$ChannelKeys$keyGameOffer,
 			_user$project$ChannelKeys$keyGameAssignerLobby,
-			_user$project$Main$GameOffer,
+			_user$project$App$GameOffer,
 			_fbonetti$elm_phoenix_socket$Phoenix_Socket$withDebug(
 				_fbonetti$elm_phoenix_socket$Phoenix_Socket$init(
 					_user$project$ChannelKeys$keySocketServer(userId)))));
 };
-var _user$project$Main$init = F2(
+var _user$project$App$init = F2(
 	function (flags, location) {
 		var currentRoute = _user$project$Routing$parseLocation(location);
 		return {
 			ctor: '_Tuple2',
-			_0: A4(
-				_user$project$Main$Model,
-				_user$project$Main$initPhxSocket(flags.userId),
+			_0: A5(
+				_user$project$App$Model,
+				_user$project$App$initPhxSocket(flags.userId),
 				flags.userId,
 				{
 					ctor: '::',
 					_0: location,
 					_1: {ctor: '[]'}
 				},
-				currentRoute),
+				currentRoute,
+				{ctor: '[]'}),
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	});
-var _user$project$Main$JoinChannel = function (a) {
+var _user$project$App$JoinChannel = function (a) {
 	return {ctor: 'JoinChannel', _0: a};
 };
-var _user$project$Main$page = function (model) {
+var _user$project$App$page = function (model) {
 	var _p0 = model.route;
 	switch (_p0.ctor) {
 		case 'LobbyRoute':
@@ -128,7 +165,7 @@ var _user$project$Main$page = function (model) {
 				{
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$h1,
+						_elm_lang$html$Html$h3,
 						{ctor: '[]'},
 						{
 							ctor: '::',
@@ -146,8 +183,8 @@ var _user$project$Main$page = function (model) {
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html_Events$onClick(
-									_user$project$Main$JoinChannel(
-										A2(_user$project$Main$buildChannelContext, _user$project$ChannelKeys$keyGameAssignerLobby, '123'))),
+									_user$project$App$JoinChannel(
+										A2(_user$project$App$buildChannelContext, _user$project$ChannelKeys$keyGameAssignerLobby, '123'))),
 								_1: {ctor: '[]'}
 							},
 							{
@@ -162,8 +199,8 @@ var _user$project$Main$page = function (model) {
 								{
 									ctor: '::',
 									_0: _elm_lang$html$Html_Events$onClick(
-										_user$project$Main$RequestGame(
-											_user$project$Main$newGameScope('world'))),
+										_user$project$App$RequestGame(
+											_user$project$App$newGameScope('world'))),
 									_1: {ctor: '[]'}
 								},
 								{
@@ -217,31 +254,26 @@ var _user$project$Main$page = function (model) {
 				{
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$h1,
+						_elm_lang$html$Html$h3,
 						{ctor: '[]'},
 						{
 							ctor: '::',
 							_0: _elm_lang$html$Html$text(
-								A2(_elm_lang$core$Basics_ops['++'], 'Game', _p1)),
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'Hello User ',
+									A2(_elm_lang$core$Basics_ops['++'], model.userId, '!'))),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$button,
+							_elm_lang$html$Html$h6,
+							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(
-									_user$project$Main$JoinChannel(
-										A2(
-											_user$project$Main$buildChannelContext,
-											_user$project$ChannelKeys$keyGameChannel(_p1),
-											'123'))),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('Join channel'),
+								_0: _elm_lang$html$Html$text(
+									A2(_elm_lang$core$Basics_ops['++'], 'Game', _p1)),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
@@ -251,45 +283,72 @@ var _user$project$Main$page = function (model) {
 								{
 									ctor: '::',
 									_0: _elm_lang$html$Html_Events$onClick(
-										_user$project$Main$AnswerQuestion(
-											_user$project$Main$buildGameContext(_p1))),
+										_user$project$App$JoinChannel(
+											A2(
+												_user$project$App$buildChannelContext,
+												_user$project$ChannelKeys$keyGameChannel(_p1),
+												'123'))),
 									_1: {ctor: '[]'}
 								},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Answer correctly'),
+									_0: _elm_lang$html$Html$text('Join channel'),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$ul,
-									{ctor: '[]'},
+									_elm_lang$html$Html$button,
 									{
 										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$li,
-											{ctor: '[]'},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$a,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$href(
-															A2(_elm_lang$core$Basics_ops['++'], '#', 'lobby')),
-														_1: {ctor: '[]'}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('lobby'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}),
+										_0: _elm_lang$html$Html_Events$onClick(
+											_user$project$App$AnswerQuestion(
+												_user$project$App$buildGameContext(_p1))),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Answer correctly'),
 										_1: {ctor: '[]'}
 									}),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$ul,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$li,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href(
+																A2(_elm_lang$core$Basics_ops['++'], '#', 'lobby')),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('lobby'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$ul,
+											{ctor: '[]'},
+											_user$project$App$renderPlayers(model.players)),
+										_1: {ctor: '[]'}
+									}
+								}
 							}
 						}
 					}
@@ -309,20 +368,20 @@ var _user$project$Main$page = function (model) {
 				});
 	}
 };
-var _user$project$Main$view = function (model) {
+var _user$project$App$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _user$project$Main$page(model),
+			_0: _user$project$App$page(model),
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$PhoenixMsg = function (a) {
+var _user$project$App$PhoenixMsg = function (a) {
 	return {ctor: 'PhoenixMsg', _0: a};
 };
-var _user$project$Main$update = F2(
+var _user$project$App$update = F2(
 	function (msg, model) {
 		var x = A2(
 			_elm_lang$core$Debug$log,
@@ -333,7 +392,7 @@ var _user$project$Main$update = F2(
 			case 'JoinChannel':
 				var channel = A2(
 					_fbonetti$elm_phoenix_socket$Phoenix_Channel$withPayload,
-					_user$project$Main$userParams(model.userId),
+					_user$project$App$userParams(model.userId),
 					_fbonetti$elm_phoenix_socket$Phoenix_Channel$init(_p2._0.channel_topic));
 				var _p3 = A2(_fbonetti$elm_phoenix_socket$Phoenix_Socket$join, channel, model.phxSocket);
 				var phxSocket = _p3._0;
@@ -343,7 +402,7 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{phxSocket: phxSocket}),
-					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$PhoenixMsg, phxCmd)
+					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App$PhoenixMsg, phxCmd)
 				};
 			case 'RequestGame':
 				var payload = _elm_lang$core$Json_Encode$object(
@@ -376,7 +435,7 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{phxSocket: phxSocket}),
-					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$PhoenixMsg, phxCmd)
+					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App$PhoenixMsg, phxCmd)
 				};
 			case 'PhoenixMsg':
 				var _p5 = A2(_fbonetti$elm_phoenix_socket$Phoenix_Socket$update, _p2._0, model.phxSocket);
@@ -387,14 +446,14 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{phxSocket: phxSocket}),
-					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$PhoenixMsg, phxCmd)
+					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App$PhoenixMsg, phxCmd)
 				};
 			case 'GameOffer':
 				var input_string = A2(_elm_lang$core$Json_Encode$encode, 0, _p2._0);
-				var game_id = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$decodeGameContext, input_string);
+				var game_id = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$App$decodeGameContext, input_string);
 				var y = A2(
 					_elm_lang$core$Result$withDefault,
-					_user$project$Main$GameContext('0'),
+					_user$project$App$GameContext('0'),
 					game_id);
 				var true_id = y.game_id;
 				var game_channel_topic = _user$project$ChannelKeys$keyGameChannel(true_id);
@@ -402,15 +461,15 @@ var _user$project$Main$update = F2(
 					_fbonetti$elm_phoenix_socket$Phoenix_Socket$on,
 					_user$project$ChannelKeys$keyGameStateUpdated,
 					game_channel_topic,
-					_user$project$Main$UpdateGameScore,
+					_user$project$App$UpdateGameScore,
 					A4(
 						_fbonetti$elm_phoenix_socket$Phoenix_Socket$on,
 						_user$project$ChannelKeys$keySubmitAnswer,
 						game_channel_topic,
-						_user$project$Main$AnswerQuestion,
+						_user$project$App$AnswerQuestion,
 						_fbonetti$elm_phoenix_socket$Phoenix_Socket$withDebug(model.phxSocket)));
-				var answer_question_action = _user$project$Main$AnswerQuestion(
-					_user$project$Main$buildGameContext(true_id));
+				var answer_question_action = _user$project$App$AnswerQuestion(
+					_user$project$App$buildGameContext(true_id));
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -427,10 +486,10 @@ var _user$project$Main$update = F2(
 			case 'AnswerQuestion':
 				var payload = _elm_lang$core$Json_Encode$int(1);
 				var input_string = A2(_elm_lang$core$Json_Encode$encode, 0, _p2._0);
-				var game_id = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$decodeGameContext, input_string);
+				var game_id = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$App$decodeGameContext, input_string);
 				var y = A2(
 					_elm_lang$core$Result$withDefault,
-					_user$project$Main$GameContext('0'),
+					_user$project$App$GameContext('0'),
 					game_id);
 				var true_id = y.game_id;
 				var push_ = A2(
@@ -448,25 +507,30 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{phxSocket: phxSocket}),
-					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$PhoenixMsg, phxCmd)
+					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App$PhoenixMsg, phxCmd)
 				};
 			case 'UpdateGameScore':
 				var input_string = A2(_elm_lang$core$Json_Encode$encode, 0, _p2._0);
 				var x = A2(_elm_lang$core$Debug$log, 'input string', input_string);
-				var game_id = function () {
-					var _p7 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$decodeGameState, input_string);
+				var players = function () {
+					var _p7 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$App$decodeGameState, input_string);
 					if (_p7.ctor === 'Ok') {
 						return _p7._0;
 					} else {
 						return {
 							ctor: '::',
-							_0: A2(_user$project$Main$PlayerScore, '0', 1),
+							_0: A2(_user$project$App$PlayerScore, '0', 1),
 							_1: {ctor: '[]'}
 						};
 					}
 				}();
-				var y = A2(_elm_lang$core$Debug$log, 'xxxxxxxx - UpdateGameScore', game_id);
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{players: players}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			default:
 				var _p8 = _p2._0;
 				var currentRoute = _user$project$Routing$parseLocation(_p8);
@@ -482,13 +546,13 @@ var _user$project$Main$update = F2(
 				};
 		}
 	});
-var _user$project$Main$subscriptions = function (model) {
-	return A2(_fbonetti$elm_phoenix_socket$Phoenix_Socket$listen, model.phxSocket, _user$project$Main$PhoenixMsg);
+var _user$project$App$subscriptions = function (model) {
+	return A2(_fbonetti$elm_phoenix_socket$Phoenix_Socket$listen, model.phxSocket, _user$project$App$PhoenixMsg);
 };
-var _user$project$Main$main = A2(
+var _user$project$App$main = A2(
 	_elm_lang$navigation$Navigation$programWithFlags,
-	_user$project$Main$UrlChange,
-	{init: _user$project$Main$init, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions, view: _user$project$Main$view})(
+	_user$project$App$UrlChange,
+	{init: _user$project$App$init, update: _user$project$App$update, subscriptions: _user$project$App$subscriptions, view: _user$project$App$view})(
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
 		function (userId) {

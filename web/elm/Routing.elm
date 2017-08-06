@@ -1,16 +1,21 @@
 module Routing exposing (..)
 
-import Models exposing (PlayerId, Route(..))
 import Navigation exposing (Location)
 import UrlParser exposing (..)
+
+
+type Route
+    = LobbyRoute
+    | GameRoute String
+    | NotFoundRoute
 
 
 matchers : Parser (Route -> a) a
 matchers =
     oneOf
-        [ map PlayersRoute top
-        , map PlayerRoute (s "players" </> string)
-        , map PlayersRoute (s "players")
+        [ map LobbyRoute top
+        , map LobbyRoute (s "lobby")
+        , map GameRoute (s "games" </> string)
         ]
 
 

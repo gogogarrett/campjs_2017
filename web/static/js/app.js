@@ -34,4 +34,4 @@ const userId = getParameterByName("user_id")
 
 // Set up our Elm App
 const elmDiv = document.querySelector('#elm-container')
-const elmApp = Elm.Main.embed(elmDiv, { userId })
+const elmApp = Elm.App.embed(elmDiv, { userId })
